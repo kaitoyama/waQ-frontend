@@ -102,11 +102,20 @@ function App() {
     }
     // POSTリクエストの送信
     try {
+      var privateKey = process.env.REACT_APP_PRIVATE_KEY;
+      if (!privateKey) {
+        console.error('Private key is not set');
+        message.error('Private key is not set');
+        setLoading(false);
+        return;
+      }
+      // privateKeyをheaderにつけて送信
+      var headers = new Headers();
+      headers.append("X-Private-Key", privateKey);
+      headers.append("Content-Type", "application/json");
       const response = await fetch(backendURL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: headers,
         body: JSON.stringify(requestData)
       });
 
