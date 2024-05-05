@@ -234,8 +234,7 @@ function App() {
               )}
             </div>
             <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
-              <Typography.Text>現在修正中なので使用できません</Typography.Text>
-              <Button type="primary" htmlType="submit" disabled={true}>
+              <Button type="primary" htmlType="submit" disabled={loading}>
                 枠を作る
               </Button>
             </Form.Item>
