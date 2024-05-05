@@ -100,29 +100,12 @@ function App() {
 
       };
     }
-
-    // 秘密鍵で署名
-    // read private key from environment
-    const privateKey = process.env.REACT_APP_PRIVATE_KEY;
-    if (!privateKey) {
-      console.error('Private key is not set');
-      return;
-    }
-    // sort request data by key name
-    const sortedRequestData: any = {};
-    Object.keys(requestData).sort().forEach(function (key) {
-      sortedRequestData[key] = requestData[key];
-    });
-
-    const signature = Base64.stringify(hmacSHA512(JSON.stringify(sortedRequestData), privateKey));
-    console.log(JSON.stringify(sortedRequestData));
     // POSTリクエストの送信
     try {
       const response = await fetch(backendURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Signature': signature // 署名をヘッダーに追加
         },
         body: JSON.stringify(requestData)
       });
